@@ -169,7 +169,9 @@ app.post("/users/courses/:courseId", authenticatejwt, (req, res) => {
 });
 
 app.get("/users/purchasedCourses", authenticatejwt,  (req, res) => {
-      
+       
+  
+
      const user = USERS.find(u => u.username === req.user.username);
 
      if(user){
