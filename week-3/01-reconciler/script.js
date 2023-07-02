@@ -13,6 +13,7 @@ function createDomElements(data) {
     // Check if a child with this ID already exists
     var existingChild = currentChildren.find(function(child) {
       return child.dataset.id === String(item.id);
+      
     });
 
     if (existingChild) {
@@ -36,7 +37,7 @@ function createDomElements(data) {
 
       var grandChildElement3 = document.createElement("button");
       grandChildElement3.innerHTML = "Delete"
-      grandChildElement3.setAttribute("onclick", "deleteTodo(" + item.id + ")")
+      grandChildElement3.setAttribute("onclick", `deleteTodo(${item.id})`)     
 
       childElement.appendChild(grandChildElement1)
       childElement.appendChild(grandChildElement2)
@@ -45,7 +46,7 @@ function createDomElements(data) {
     }
   });
 
-  // Any children left in the currentChildren array no longer exist in the data, so remove them
+  // Any children left in the currentChildren array no longer exist in the data or we can say in current state , so remove them
   currentChildren.forEach(function(child) {
     parentElement.removeChild(child);
   });
