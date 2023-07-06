@@ -10,7 +10,7 @@ The backend we've already written in
 /week2/02-nodejs/solutions/todoServer.solution.js
 
 Make sure you
-1. Add app.listen so it is running on 3000
+1. Add app.listen so it is running on 2999
 2. Use cors
 
 Good to do

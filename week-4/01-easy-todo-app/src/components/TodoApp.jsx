@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function TodoApp() {
   const [todos, setTodos] = useState([]);
@@ -8,16 +9,18 @@ export default function TodoApp() {
     fetchData();
   }, []);
 
+
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/todos");
-      const data = await response.json();
-      console.log(data);
+      const response = await axios.get("http://localhost:3000/todos");
+      const data = response.data;
+      // console.log(data);
       setTodos(data);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -26,18 +29,18 @@ export default function TodoApp() {
 
   const handleAddTodo = async () => {
     try {
-      const response = await fetch("http://localhost:3000/todos", {
-        method: "POST",
+      const response = await axios.post("http://localhost:3000/todos",{
+        title: newtodo.title,
+        description: newtodo.description,
+      },
+      {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          title: newtodo.title,
-          description: newtodo.description,
-        }),
+        
       });
 
-      const data = await response.json();
+      const data = response.data;
       setTodos((prev) => [...prev, data]);
       //setNewTodo({title: "" , description: "" })
     } catch (error) {
@@ -47,9 +50,7 @@ export default function TodoApp() {
 
    const handelDelete = async (todoid) => { 
     try {
-      await fetch(`http://localhost:3000/todos/${todoid}`, {
-        method: "DELETE",
-      });
+      await axios.delete(`http://localhost:3000/todos/${todoid}`);
 
       setTodos((prev) => prev.filter((todo) => todo.id !== todoid));
     } catch (error) {
